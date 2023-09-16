@@ -24,7 +24,9 @@ typedef class Graph{
         int getMaxDegree();
         int getAvgDegree();
         int getMedianDegree();
-        
+        void BFS(int v);
+        void DFS(int v);
+
         // Adjacency Matrix related functions
         void createAdjMatrix(std::ifstream &fin);
         void addEdgeAdjMatrix(int v1, int v2);
@@ -32,6 +34,8 @@ typedef class Graph{
         void printAdjMatrix();
         int getMinDegreeAdjMatrix();
         int getMaxDegreeAdjMatrix();
+        void BFSAdjMatrix(int v);
+        void DFSAdjMatrix(int v);
 
         // Adjacency List related functions
         void createAdjList(std::ifstream &fin);
@@ -40,5 +44,7 @@ typedef class Graph{
         void printAdjList();
         int getMinDegreeAdjList();
         int getMaxDegreeAdjList();
+        void BFSAdjList(int v);
+        void DFSAdjList(int v);
 
 } Graph;

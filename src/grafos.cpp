@@ -104,6 +104,10 @@ void Graph::createAdjMatrix(ifstream &fin){
     }
 }
 
+void Graph::BFSAdjMatrix(int v){
+    //TODO
+}
+
 /**
  * AdjList functions
  */
@@ -165,6 +169,10 @@ void Graph::createAdjList(ifstream &fin){
         }
         counter++;
     }
+}
+
+void Graph::BFSAdjList(int v){
+    //TODO
 }
 
 /**
@@ -234,4 +242,12 @@ int Graph::getMaxDegree(){
         }
     }
     return maxDegree;
+}
+
+void Graph::BFS(int v){
+    if (adjMatrix){
+        BFSAdjMatrix(v);
+    }else if(adjList){
+        BFSAdjList(v);
+    }
 }
