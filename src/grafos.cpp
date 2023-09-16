@@ -1,10 +1,14 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <vector>
 #include "grafos.h"
 
 using namespace std;
 
+/**
+ * Aux functions
+ */
 bool readNextToken(int& token, ifstream& fin){
     char nextChar;
     fin >> nextChar;
@@ -20,6 +24,9 @@ bool readNextToken(int& token, ifstream& fin){
     return true;
 }
 
+/**
+ * AdjMatrix functions
+ */
 void Graph::addEdgeAdjMatrix(int v1, int v2){
     Matrix[v1][v2] = true;
     Matrix[v2][v1] = true;
@@ -68,6 +75,46 @@ void Graph::createAdjMatrix(ifstream &fin){
     }
 }
 
+/**
+ * AdjList functions
+ */
+
+void Graph::addEdgeAdjList(int v1, int v2){
+    // TODO
+}
+
+void Graph::removeEdgeAdjList(int v1, int v2){
+    // TODO
+}
+
+void Graph::printAdjList(){
+    // TODO
+}
+
+void Graph::createAdjList(ifstream &fin){
+    vector <int> adjList[nVertices];
+    int token;
+    int counter = 0;
+    int v1;
+    int v2;
+
+    while (readNextToken(token, fin)){   
+
+        if(counter%2 == 0){
+            v1 = token;
+        }else{
+            v2 = token;
+            cout << v1 << " " << v2 << endl;
+        }
+        counter++;
+
+    }
+}
+
+/**
+ * Graph functions
+ */
+
 bool Graph::createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjList){
 
     ifstream fin(sFilename);
@@ -87,9 +134,9 @@ bool Graph::createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjLi
         createAdjMatrix(fin);
         printAdjMatrix();
     }
-    
+
     if(adjList){
-        // createAdjList(fin);
+        createAdjList(fin);
         // printAdjList();
     }
 
@@ -99,7 +146,6 @@ bool Graph::createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjLi
 
 int main(){
     Graph g;
-    g.createGraphFromTxt("data/grafo_teste.txt", true, false);
+    g.createGraphFromTxt("data/grafo_teste.txt", false, true);
     return 0;
 }
-

@@ -1,15 +1,11 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 typedef struct Node{
     int id;
     Node *next;
 } Node;
-
-typedef struct List{
-    Node *head;
-    Node *tail;
-} List;
 
 typedef class Graph{
     private:
@@ -27,5 +23,9 @@ typedef class Graph{
         void printAdjMatrix();
 
         // Adjacency List related functions
+        void createAdjList(std::ifstream &fin);
+        void addEdgeAdjList(int v1, int v2);
+        void removeEdgeAdjList(int v1, int v2);
+        void printAdjList();
 
 } Graph;
