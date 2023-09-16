@@ -16,6 +16,7 @@ typedef class Graph{
         std::vector<int> *List;
 
     public:
+        // Graph functions
         bool createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjList);
         int getNVertices();
         int getNEdges();
@@ -29,11 +30,15 @@ typedef class Graph{
         void addEdgeAdjMatrix(int v1, int v2);
         void removeEdgeAdjMatrix(int v1, int v2);
         void printAdjMatrix();
+        int getMinDegreeAdjMatrix();
+        int getMaxDegreeAdjMatrix();
 
         // Adjacency List related functions
         void createAdjList(std::ifstream &fin);
         void addEdgeAdjList(int v1, int v2);
         void removeEdgeAdjList(int v1, int v2);
         void printAdjList();
+        int getMinDegreeAdjList();
+        int getMaxDegreeAdjList();
 
 } Graph;

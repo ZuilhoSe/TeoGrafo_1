@@ -36,6 +36,38 @@ void Graph::removeEdgeAdjMatrix(int v1, int v2){
     Matrix[v2][v1] = false;
 }
 
+int Graph::getMinDegreeAdjMatrix(){
+    int min = nVertices;
+    for(int i = 0; i < nVertices; i++){
+        int degree = 0;
+        for(int j = 0; j < nVertices; j++){
+            if(Matrix[i][j]){
+                degree++;
+            }
+        }
+        if(degree < min){
+            min = degree;
+        }
+    }
+    return min;
+}
+
+int Graph::getMaxDegreeAdjMatrix(){
+    int max = 0;
+    for(int i = 0; i < nVertices; i++){
+        int degree = 0;
+        for(int j = 0; j < nVertices; j++){
+            if(Matrix[i][j]){
+                degree++;
+            }
+        }
+        if(degree > max){
+            max = degree;
+        }
+    }
+    return max;
+}
+
 void Graph::printAdjMatrix(){
     // Print the matrix, not recommended for large graphs
     for(int i = 0; i < nVertices; i++){
@@ -66,7 +98,7 @@ void Graph::createAdjMatrix(ifstream &fin){
         }else{
             v2 = token;
             nEdges++;
-            addEdgeAdjMatrix(v1, v2);
+            addEdgeAdjMatrix(v1-1, v2-1);
         }
         counter++;
     }
@@ -82,6 +114,26 @@ void Graph::addEdgeAdjList(int v1, int v2){
 
 void Graph::removeEdgeAdjList(int v1, int v2){
     //TODO
+}
+
+int Graph::getMinDegreeAdjList(){
+    int min = nVertices;
+    for(int i = 0; i < nVertices; i++){
+        if(List[i].size() < min){
+            min = List[i].size();
+        }
+    }
+    return min;
+}
+
+int Graph::getMaxDegreeAdjList(){
+    int max = 0;
+    for(int i = 0; i < nVertices; i++){
+        if(List[i].size() > max){
+            max = List[i].size();
+        }
+    }
+    return max;
 }
 
 void Graph::printAdjList(){
@@ -109,7 +161,7 @@ void Graph::createAdjList(ifstream &fin){
         }else{
             v2 = token;
             nEdges++;
-            addEdgeAdjList(v1, v2);
+            addEdgeAdjList(v1-1, v2-1);
         }
         counter++;
     }
@@ -156,7 +208,14 @@ int Graph::getNEdges(){
 }
 
 int Graph::getMinDegree(){
-    //TODO
+    if(minDegree == -1){
+        if (adjMatrix){
+            minDegree = getMinDegreeAdjMatrix();
+        }else if(adjList){
+            minDegree = getMinDegreeAdjList();
+        }
+    }
+    return minDegree;
 }
 
 int Graph::getAvgDegree(){
@@ -167,16 +226,12 @@ int Graph::getAvgDegree(){
 }
 
 int Graph::getMaxDegree(){
-    //TODO
-}
-
-int main(){
-    Graph g;
-    g.createGraphFromTxt("data/grafo_teste.txt", true, false);
-    cout << "Nedges: " << g.getNEdges() << "\n";
-    cout << "Nvertices: " << g.getNVertices() << "\n";
-    cout << "MinDegree: " << g.getMinDegree() << "\n";
-    cout << "MaxDegree: " << g.getMaxDegree() << "\n";
-    cout << "AvgDegree: " << g.getAvgDegree() << "\n";
-    return 0;
+    if(maxDegree == -1){
+        if (adjMatrix){
+            maxDegree = getMaxDegreeAdjMatrix();
+        }else if(adjList){
+            maxDegree = getMaxDegreeAdjList();
+        }
+    }
+    return maxDegree;
 }
