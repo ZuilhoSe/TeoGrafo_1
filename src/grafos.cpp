@@ -16,8 +16,7 @@ bool readNextToken(int& token, ifstream& fin){
     fin.unget(); 
     fin >> token;
 
-    if (fin.fail()) 
-    {
+    if(fin.fail()){
         return false;
     }
 
@@ -40,10 +39,10 @@ void Graph::removeEdgeAdjMatrix(int v1, int v2){
 void Graph::printAdjMatrix(){
     // Print the matrix, not recommended for large graphs
     for(int i = 0; i < nVertices; i++){
-      cout << i << " : ";
-      for(int j = 0; j < nVertices; j++)
-        cout << Matrix[i][j] << " ";
-      cout << "\n";
+        cout << i << " : ";
+        for(int j = 0; j < nVertices; j++)
+            cout << Matrix[i][j] << " ";
+        cout << "\n";
     }
 }
 
