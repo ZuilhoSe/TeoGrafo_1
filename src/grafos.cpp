@@ -118,7 +118,6 @@ void Graph::createAdjList(ifstream &fin){
  * Graph functions
  */
 bool Graph::createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjList){
-
     ifstream fin(sFilename);
   
     if (!fin){
@@ -134,12 +133,10 @@ bool Graph::createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjLi
     
     if(adjMatrix){
         createAdjMatrix(fin);
-        printAdjMatrix();
     }
 
     if(adjList){
         createAdjList(fin);
-        printAdjList();
     }
 
     fin.close();
