@@ -75,14 +75,14 @@ void Graph::createAdjMatrix(ifstream &fin){
 /**
  * AdjList functions
  */
-
 void Graph::addEdgeAdjList(int v1, int v2){
     List[v1].push_back(v2);
     List[v2].push_back(v1);
 }
 
 void Graph::removeEdgeAdjList(int v1, int v2){
-    // TODO
+    List[v1].erase(remove(List[v1].begin(), List[v1].end(), v2), List[v1].end());
+    List[v2].erase(remove(List[v2].begin(), List[v2].end(), v1), List[v2].end());
 }
 
 void Graph::printAdjList(){
@@ -118,7 +118,6 @@ void Graph::createAdjList(ifstream &fin){
 /**
  * Graph functions
  */
-
 bool Graph::createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjList){
 
     ifstream fin(sFilename);
