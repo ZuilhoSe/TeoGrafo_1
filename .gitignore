@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+data/grafo_4.txt
+data/grafo_5.txt
+src/grafos.cpp
+data/grafo_6.txt

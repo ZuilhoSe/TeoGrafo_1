@@ -170,9 +170,9 @@ void Graph::createAdjList(ifstream &fin){
 /**
  * Graph functions
  */
-bool Graph::createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjList){
-    adjMatrix = adjMatrix;
-    adjList = adjList;
+bool Graph::createGraphFromTxt(std::string sFilename, bool makeMatrix, bool makeList){
+    adjMatrix = makeMatrix;
+    adjList = makeList;
 
     ifstream fin(sFilename);
   
