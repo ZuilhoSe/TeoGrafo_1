@@ -5,6 +5,11 @@
 typedef class Graph{
     private:
         int nVertices;
+        int nEdges = 0;
+        int minDegree = -1;
+        int maxDegree = -1;
+        int avgDegree = -1;
+        int medianDegree = -1;
         bool adjMatrix;
         bool adjList;
         bool **Matrix;
@@ -12,6 +17,12 @@ typedef class Graph{
 
     public:
         bool createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjList);
+        int getNVertices();
+        int getNEdges();
+        int getMinDegree();
+        int getMaxDegree();
+        int getAvgDegree();
+        int getMedianDegree();
         
         // Adjacency Matrix related functions
         void createAdjMatrix(std::ifstream &fin);

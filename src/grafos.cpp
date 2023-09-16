@@ -65,6 +65,7 @@ void Graph::createAdjMatrix(ifstream &fin){
             v1 = token;
         }else{
             v2 = token;
+            nEdges++;
             addEdgeAdjMatrix(v1, v2);
         }
         counter++;
@@ -80,8 +81,7 @@ void Graph::addEdgeAdjList(int v1, int v2){
 }
 
 void Graph::removeEdgeAdjList(int v1, int v2){
-    List[v1].erase(remove(List[v1].begin(), List[v1].end(), v2), List[v1].end());
-    List[v2].erase(remove(List[v2].begin(), List[v2].end(), v1), List[v2].end());
+    //TODO
 }
 
 void Graph::printAdjList(){
@@ -108,6 +108,7 @@ void Graph::createAdjList(ifstream &fin){
             v1 = token;
         }else{
             v2 = token;
+            nEdges++;
             addEdgeAdjList(v1, v2);
         }
         counter++;
@@ -118,6 +119,9 @@ void Graph::createAdjList(ifstream &fin){
  * Graph functions
  */
 bool Graph::createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjList){
+    adjMatrix = adjMatrix;
+    adjList = adjList;
+
     ifstream fin(sFilename);
   
     if (!fin){
@@ -143,8 +147,36 @@ bool Graph::createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjLi
     return true;
 }
 
+int Graph::getNVertices(){
+    return nVertices;
+}
+
+int Graph::getNEdges(){
+    return nEdges;
+}
+
+int Graph::getMinDegree(){
+    //TODO
+}
+
+int Graph::getAvgDegree(){
+    if(avgDegree == -1){
+        avgDegree = 2*nEdges/nVertices;
+    }
+    return avgDegree;
+}
+
+int Graph::getMaxDegree(){
+    //TODO
+}
+
 int main(){
     Graph g;
-    g.createGraphFromTxt("data/grafo_teste.txt", false, true);
+    g.createGraphFromTxt("data/grafo_teste.txt", true, false);
+    cout << "Nedges: " << g.getNEdges() << "\n";
+    cout << "Nvertices: " << g.getNVertices() << "\n";
+    cout << "MinDegree: " << g.getMinDegree() << "\n";
+    cout << "MaxDegree: " << g.getMaxDegree() << "\n";
+    cout << "AvgDegree: " << g.getAvgDegree() << "\n";
     return 0;
 }
