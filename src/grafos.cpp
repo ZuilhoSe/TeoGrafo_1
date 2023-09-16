@@ -48,30 +48,27 @@ void Graph::printAdjMatrix(){
 }
 
 void Graph::createAdjMatrix(ifstream &fin){
+    Matrix = new bool*[nVertices];
+    for(int i = 0; i < nVertices; i++){
+        Matrix[i] = new bool[nVertices];
+        for(int j = 0; j < nVertices; j++){
+            Matrix[i][j] = false;
+        }
+    }
+
     int token;
     int counter = 0;
     int v1;
     int v2;
 
     while (readNextToken(token, fin)){   
-        if (counter == 0){
-            Matrix = new bool*[nVertices];
-            for (int i = 0; i < nVertices; i++){
-            Matrix[i] = new bool[nVertices];
-            for (int j = 0; j < nVertices; j++)
-                Matrix[i][j] = false;
-            }
-            counter++;
-        }
-        
-        counter++;
-
         if(counter%2 == 0){
             v1 = token;
         }else{
             v2 = token;
             addEdgeAdjMatrix(v1, v2);
         }
+        counter++;
     }
 }
 
@@ -80,7 +77,8 @@ void Graph::createAdjMatrix(ifstream &fin){
  */
 
 void Graph::addEdgeAdjList(int v1, int v2){
-    // TODO
+    List[v1].push_back(v2);
+    List[v2].push_back(v1);
 }
 
 void Graph::removeEdgeAdjList(int v1, int v2){
@@ -88,26 +86,32 @@ void Graph::removeEdgeAdjList(int v1, int v2){
 }
 
 void Graph::printAdjList(){
-    // TODO
+    // Print the list, not recommended for large graphs
+    for(int i = 0; i < nVertices; i++){
+        cout << i << " -> ";
+        for(int v: List[i]){
+            cout << v << " ";
+        }
+        cout << endl;
+    }
 }
 
 void Graph::createAdjList(ifstream &fin){
-    vector <int> adjList[nVertices];
+    List = new vector<int>[nVertices];
+
     int token;
     int counter = 0;
     int v1;
     int v2;
 
-    while (readNextToken(token, fin)){   
-
+    while (readNextToken(token, fin)){
         if(counter%2 == 0){
             v1 = token;
         }else{
             v2 = token;
-            cout << v1 << " " << v2 << endl;
+            addEdgeAdjList(v1, v2);
         }
         counter++;
-
     }
 }
 
@@ -137,7 +141,7 @@ bool Graph::createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjLi
 
     if(adjList){
         createAdjList(fin);
-        // printAdjList();
+        printAdjList();
     }
 
     fin.close();

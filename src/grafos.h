@@ -2,17 +2,14 @@
 #include <string>
 #include <vector>
 
-typedef struct Node{
-    int id;
-    Node *next;
-} Node;
-
 typedef class Graph{
     private:
         int nVertices;
         bool adjMatrix;
         bool adjList;
         bool **Matrix;
+        std::vector<int> *List;
+
     public:
         bool createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjList);
         
