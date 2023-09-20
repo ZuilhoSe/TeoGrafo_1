@@ -8,7 +8,7 @@ using namespace std;
 
 int main(){
     Graph g;
-    g.createGraphFromTxt("data/grafo_1.txt", false, true');
+    g.createGraphFromTxt("data/grafo_6.txt", false, true);
     cout << "nVertices: " << g.getNVertices() << endl;
     cout << "nEdges: " << g.getNEdges() << endl;
     cout << "minDegree: " << g.getMinDegree() << endl;

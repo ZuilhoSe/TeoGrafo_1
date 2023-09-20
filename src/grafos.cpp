@@ -108,6 +108,10 @@ void Graph::BFSAdjMatrix(int v){
     //TODO
 }
 
+void Graph::DFSAdjMatrix(int v){
+    //TODO
+}
+
 /**
  * AdjList functions
  */
@@ -172,6 +176,10 @@ void Graph::createAdjList(ifstream &fin){
 }
 
 void Graph::BFSAdjList(int v){
+    //TODO
+}
+
+void Graph::DFSAdjList(int v){
     //TODO
 }
 
@@ -249,5 +257,13 @@ void Graph::BFS(int v){
         BFSAdjMatrix(v);
     }else if(adjList){
         BFSAdjList(v);
+    }
+}
+
+void Graph::DFS(int v){
+    if (adjMatrix){
+        DFSAdjMatrix(v);
+    }else if(adjList){
+        DFSAdjList(v);
     }
 }
