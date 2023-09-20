@@ -17,6 +17,9 @@ typedef class Graph{
 
     public:
         // Graph functions
+        Graph(std::string sFilename, bool adjMatrix, bool adjList){
+            this->createGraphFromTxt(sFilename, adjMatrix, adjList);
+        };
         bool createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjList);
         int getNVertices();
         int getNEdges();
@@ -24,6 +27,7 @@ typedef class Graph{
         int getMaxDegree();
         int getAvgDegree();
         int getMedianDegree();
+        std::vector<int> returnNeighbors(int v);
         void BFS(int v);
         void DFS(int v);
 

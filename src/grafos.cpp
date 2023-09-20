@@ -104,9 +104,48 @@ void Graph::createAdjMatrix(ifstream &fin){
     }
 }
 
-void Graph::BFSAdjMatrix(int v){
-    //TODO
+std::vector<int> Graph::returnNeighbors(int v){
+    v = v-1;
+    vector<int> neighbors;
+    for(int i = 0; i < nVertices; i++){
+        if(Matrix[v][i]){
+            neighbors.push_back(i+1);
+        }
+    }
+    return neighbors;
 }
+
+void Graph::BFSAdjMatrix(int v){
+    vector<bool> visited(nVertices, false);
+    vector<int> degree(nVertices, 0);
+    vector<int> father(nVertices, -1);
+    vector<int> queue;
+    vector<int> neighbors;
+
+    visited[v-1] = true;
+    degree[v-1] = 0;
+    father[v-1] = 0;
+
+    queue.push_back(v-1);
+
+    while(queue.size() > 0){
+        int u = queue[0];
+        queue.erase(queue.begin());
+
+        neighbors = returnNeighbors(u+1);
+
+        for (int i = 0; i < neighbors.size(); i++){
+            int w = neighbors[i]-1;
+            if(!visited[w]){
+                visited[w] = true;
+                degree[w] = degree[u]+1;
+                father[w] = u+1;
+                queue.push_back(w);
+                cout << "Visitando " << w+1 << " com pai " << u+1 << endl;
+            }
+        }
+    }
+}   
 
 void Graph::DFSAdjMatrix(int v){
     //TODO
