@@ -7,9 +7,7 @@
 using namespace std;
 
 int main(){
-    Graph g("data/grafo_teste.txt", true, false);
-    g.printAdjMatrix();
-    std::vector<int> neighbors = g.returnNeighbors(8);
-    g.BFS(4);
+    Graph g("data/grafo_1.txt", true, false);
+    g.BFS(1);
     return 0;
 }

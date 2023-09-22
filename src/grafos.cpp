@@ -141,10 +141,10 @@ void Graph::BFSAdjMatrix(int v){
                 degree[w] = degree[u]+1;
                 father[w] = u+1;
                 queue.push_back(w);
-                cout << "Visitando " << w+1 << " com pai " << u+1 << endl;
             }
         }
     }
+    cout << "Finalizado" << endl;
 }   
 
 void Graph::DFSAdjMatrix(int v){
