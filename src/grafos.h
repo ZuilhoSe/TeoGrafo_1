@@ -10,6 +10,8 @@ typedef class Graph{
         int maxDegree = -1;
         int avgDegree = -1;
         int medianDegree = -1;
+        int diameter = -1;
+        int connectedComponents = -1;
         bool adjMatrix;
         bool adjList;
         bool **Matrix;
@@ -30,6 +32,8 @@ typedef class Graph{
         std::vector<int> returnNeighbors(int v);
         void BFS(int v);
         void DFS(int v);
+        int calcDistance(int v1, int v2);
+        int calcDiameter();
 
         // Adjacency Matrix related functions
         void createAdjMatrix(std::ifstream &fin);

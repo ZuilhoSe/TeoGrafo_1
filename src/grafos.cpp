@@ -306,3 +306,22 @@ void Graph::DFS(int v){
         DFSAdjList(v);
     }
 }
+
+int Graph::calcDistance(int v1, int v2){
+    int distance = 0;
+
+    if(adjMatrix){
+        //TODO
+    }else if(adjList){
+        //TODO
+    }
+
+    return distance;
+}
+
+int Graph::calcDiameter(){
+    if(diameter == -1){
+        //TODO
+    }
+    return diameter;
+}
