@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <queue>
+#include <bits/stdc++.h>
 #include "grafos.h"
 
 using namespace std;
@@ -67,6 +68,28 @@ int Graph::getMaxDegreeAdjMatrix(){
         }
     }
     return max;
+}
+
+int Graph::getMedianDegreeAdjMatrix(){
+    vector<int> degrees;
+
+    for(int i = 0; i < nVertices; i++){
+        int degree = 0;
+        for(int j = 0; j < nVertices; j++){
+            if(Matrix[i][j]){
+                degree++;
+            }
+        }
+        degrees.push_back(degree);
+    }
+
+    sort(degrees.begin(), degrees.end());
+
+    if (degrees.size() % 2 == 0){
+        return (degrees[degrees.size()/2] + degrees[degrees.size()/2 - 1])/2;
+    }
+
+    return degrees[degrees.size()/2];
 }
 
 void Graph::printAdjMatrix(){
@@ -156,9 +179,9 @@ void Graph::BFSAdjMatrix(int v){
 
     cout << "BFS Finalizada!" << endl;
 
-    for(int j = 0; j < nVertices; j++){
-        cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Grau: " << degree[j] << endl;
-    }
+    //for(int j = 0; j < nVertices; j++){
+    //    cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Grau: " << degree[j] << endl;
+    //}
 }   
 
 void Graph::DFSAdjMatrix(int v){
@@ -224,6 +247,22 @@ int Graph::getMaxDegreeAdjList(){
         }
     }
     return max;
+}
+
+int Graph::getMedianDegreeAdjList(){
+    vector<int> degrees;
+
+    for(int i = 0; i < nVertices; i++){
+        degrees.push_back(List[i].size());
+    }
+
+    sort(degrees.begin(), degrees.end());
+
+    if (degrees.size() % 2 == 0){
+        return (degrees[degrees.size()/2] + degrees[degrees.size()/2 - 1])/2;
+    }
+
+    return degrees[degrees.size()/2];
 }
 
 void Graph::printAdjList(){
@@ -399,6 +438,17 @@ int Graph::getMaxDegree(){
         }
     }
     return maxDegree;
+}
+
+int Graph::getMedianDegree(){
+    if(medianDegree == -1){
+        if(adjMatrix){
+            medianDegree = getMedianDegreeAdjMatrix();
+        }else if(adjList){
+            medianDegree = getMedianDegreeAdjList();
+        }
+    }
+    return medianDegree;
 }
 
 void Graph::BFS(int v){

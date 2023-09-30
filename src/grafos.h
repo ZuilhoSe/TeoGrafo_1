@@ -16,6 +16,7 @@ typedef class Graph{
         bool adjList;
         bool **Matrix;
         std::vector<int> *List;
+        
 
     public:
         // Graph functions
@@ -35,6 +36,7 @@ typedef class Graph{
         int calcDistance(int v1, int v2);
         int calcDiameter();
 
+
         // Adjacency Matrix related functions
         void createAdjMatrix(std::ifstream &fin);
         void addEdgeAdjMatrix(int v1, int v2);
@@ -42,6 +44,7 @@ typedef class Graph{
         void printAdjMatrix();
         int getMinDegreeAdjMatrix();
         int getMaxDegreeAdjMatrix();
+        int getMedianDegreeAdjMatrix();
         void BFSAdjMatrix(int v);
         void DFSAdjMatrix(int v);
 
@@ -52,6 +55,7 @@ typedef class Graph{
         void printAdjList();
         int getMinDegreeAdjList();
         int getMaxDegreeAdjList();
+        int getMedianDegreeAdjList();
         void BFSAdjList(int v);
         void DFSAdjList(int v);
 
