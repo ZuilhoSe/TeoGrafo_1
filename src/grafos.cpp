@@ -2,6 +2,7 @@
 #include <cmath>
 #include <fstream>
 #include <vector>
+#include <queue>
 #include "grafos.h"
 
 using namespace std;
@@ -125,30 +126,66 @@ void Graph::BFSAdjMatrix(int v){
     visited[v-1] = true;
     degree[v-1] = 0;
     father[v-1] = 0;
-
     queue.push_back(v-1);
 
     while(queue.size() > 0){
-        int u = queue[0];
+        int f = queue[0];
         queue.erase(queue.begin());
 
-        neighbors = returnNeighbors(u+1);
+        neighbors = returnNeighbors(f+1);
+        degree[f] = neighbors.size();
 
         for (int i = 0; i < neighbors.size(); i++){
-            int w = neighbors[i]-1;
-            if(!visited[w]){
-                visited[w] = true;
-                degree[w] = degree[u]+1;
-                father[w] = u+1;
-                queue.push_back(w);
+            int w = neighbors[i];
+            if(visited[w-1] == false){
+                visited[w-1] = true;
+                queue.push_back(w-1);
+                father[w-1] = f+1;
             }
         }
     }
+
     cout << "Finalizado" << endl;
+    for (int i = 0; i < nVertices; i++){
+        cout << i+1 << " " << degree[i] << " " << father[i] << endl;
+    }
 }   
 
 void Graph::DFSAdjMatrix(int v){
-    //TODO
+    vector<bool> visited(nVertices, false);
+    vector<int> degree(nVertices, 0);
+    vector<int> father(nVertices, -1);
+    vector<int> queue;
+    vector<int> neighbors;
+
+    visited[v-1] = true;
+    degree[v-1] = 0;
+
+    queue.push_back(v-1);    
+
+    while(queue.size() > 0){
+        int f = queue[0];
+        queue.erase(queue.begin());
+
+        if(visited[f]==0){
+            visited[f] = true;
+            neighbors = returnNeighbors(f+1);
+            for (int i = neighbors.size()-1; i >= 0; i--){
+                int w = neighbors[i]-1;
+                queue.push_back(w);
+                if(!visited[w]){
+                    degree[w] = degree[f]+1;
+                    father[w] = f+1;
+                }
+            }
+        }
+    }
+
+    cout << "Finalizado" << endl;
+
+    for (int i = 0; i < nVertices; i++){
+        cout << i+1 << " " << degree[i] << " " << father[i] << endl;
+    }
 }
 
 /**
