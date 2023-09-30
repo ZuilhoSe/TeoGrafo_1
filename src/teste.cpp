@@ -10,6 +10,6 @@ int main(){
     Graph g("data/grafo_teste.txt", false, true);
     cout << "NVertices: " << g.getNVertices() << endl;
     g.BFS(1);
-    //g.DFS(1);
+    g.DFS(4);
     return 0;
 }

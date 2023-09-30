@@ -165,7 +165,6 @@ void Graph::DFSAdjMatrix(int v){
     vector<bool> visited(nVertices, false);
     vector<int> degree(nVertices, 0);
     vector<int> father(nVertices, -1);
-    vector<int> explored;
     vector<int> stack;
     vector<int> neighbors;
 
@@ -179,7 +178,6 @@ void Graph::DFSAdjMatrix(int v){
 
         if(visited[f] == false){
             visited[f] = true;
-            explored.push_back(f+1);
             neighbors = returnNeighbors(f+1, false);
             degree[f] = neighbors.size();
 
@@ -297,7 +295,41 @@ void Graph::BFSAdjList(int v){
 }
 
 void Graph::DFSAdjList(int v){
-    //TODO
+    vector<bool> visited(nVertices, false);
+    vector<int> degree(nVertices, 0);
+    vector<int> father(nVertices, -1);
+    vector<int> stack;
+    vector<int> neighbors;
+
+    father[v-1] = 0;
+    degree[v-1] = 0;
+    stack.push_back(v-1);
+
+    while(stack.size() > 0){
+        int f = stack[stack.size()-1];
+        stack.pop_back();
+
+        if(visited[f] == false){
+            visited[f] = true;
+            neighbors = returnNeighbors(f+1, true);
+            degree[f] = neighbors.size();
+
+            while(neighbors.size() > 0){
+                int w = neighbors[neighbors.size()-1];
+                neighbors.pop_back();
+
+                if(visited[w] == false){
+                    stack.push_back(w);
+                    father[w] = f+1;
+                }
+            }
+        }
+    }
+
+    cout << "DFS Finalizada!" << endl;
+    //for(int j = 0; j < nVertices; j++){
+    //    cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Grau: " << degree[j] << endl;
+    //}
 }
 
 /**
