@@ -152,12 +152,14 @@ void Graph::BFSAdjMatrix(int v){
     vector<bool> visited(nVertices, false);
     vector<int> degree(nVertices, 0);
     vector<int> father(nVertices, -1);
+    vector<int> level(nVertices, -1);
     vector<int> queue;
     vector<int> neighbors;
 
     visited[v-1] = true;
     degree[v-1] = 0;
     father[v-1] = 0;
+    level[v-1] = 0;
     queue.push_back(v-1);
 
     while(queue.size() > 0){
@@ -173,17 +175,20 @@ void Graph::BFSAdjMatrix(int v){
                 visited[w-1] = true;
                 queue.push_back(w-1);
                 father[w-1] = f+1;
+                level[w-1] = level[f]+1;
             }
         }
     }
 
+    this->exportGenTreeToTxt("data/grafo_teste_gen_tree.txt");
     cout << "BFS Finalizada!" << endl;
 
-    nodesDegree = degree;
-    nodesFather = father;
+    this->nodesDegree = degree;
+    this->nodesFather = father;
+    this->nodesLevel = level;
 
     //for(int j = 0; j < nVertices; j++){
-    //    cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Grau: " << degree[j] << endl;
+    //   cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Level: " << level[j] << endl;
     //}
 }   
 
@@ -191,11 +196,13 @@ void Graph::DFSAdjMatrix(int v){
     vector<bool> visited(nVertices, false);
     vector<int> degree(nVertices, 0);
     vector<int> father(nVertices, -1);
+    vector<int> level(nVertices, -1);
     vector<int> stack;
     vector<int> neighbors;
 
     father[v-1] = 0;
     degree[v-1] = 0;
+    level[v-1] = 0;
     stack.push_back(v-1);
 
     while(stack.size() > 0){
@@ -212,14 +219,17 @@ void Graph::DFSAdjMatrix(int v){
                 if(visited[w-1] == false){
                     stack.push_back(w-1);
                     father[w-1] = f+1;
+                    level[w-1] = level[f]+1;
                 }
             }
         }
     }
 
-    nodesDegree = degree;
-    nodesFather = father;
+    this->nodesDegree = degree;
+    this->nodesFather = father;
+    this->nodesLevel = level;
 
+    this->exportGenTreeToTxt("data/grafo_teste_gen_tree.txt");
     cout << "DFS Finalizada!" << endl;
 }
 
@@ -306,12 +316,14 @@ void Graph::BFSAdjList(int v){
     vector<bool> visited(nVertices, false);
     vector<int> degree(nVertices, 0);
     vector<int> father(nVertices, -1);
+    vector<int> level(nVertices, -1);
     vector<int> queue;
     vector<int> neighbors;
 
     visited[v-1] = true;
     degree[v-1] = 0;
     father[v-1] = 0;
+    level[v-1] = 0;
     queue.push_back(v-1);
 
     while(queue.size() > 0){
@@ -329,13 +341,16 @@ void Graph::BFSAdjList(int v){
                 visited[w] = true;
                 queue.push_back(w);
                 father[w] = f+1;
+                level[w] = level[f]+1;
             }
         }
     }
 
-    nodesDegree = degree;
-    nodesFather = father;
-
+    this->nodesDegree = degree;
+    this->nodesFather = father;
+    this->nodesLevel = level;
+    
+    this->exportGenTreeToTxt("data/grafo_teste_gen_tree.txt");
     cout << "BFS Finalizada!" << endl;
     //for(int j = 0; j < nVertices; j++){
     //    cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Grau: " << degree[j] << endl;
@@ -346,11 +361,13 @@ void Graph::DFSAdjList(int v){
     vector<bool> visited(nVertices, false);
     vector<int> degree(nVertices, 0);
     vector<int> father(nVertices, -1);
+    vector<int> level(nVertices, -1);
     vector<int> stack;
     vector<int> neighbors;
 
     father[v-1] = 0;
     degree[v-1] = 0;
+    level[v-1] = 0;
     stack.push_back(v-1);
 
     while(stack.size() > 0){
@@ -369,14 +386,17 @@ void Graph::DFSAdjList(int v){
                 if(visited[w] == false){
                     stack.push_back(w);
                     father[w] = f+1;
+                    level[w] = level[f]+1;
                 }
             }
         }
     }
 
-    nodesDegree = degree;
-    nodesFather = father;
+    this->nodesDegree = degree;
+    this->nodesFather = father;
+    this->nodesLevel = level;
 
+    this->exportGenTreeToTxt("data/grafo_teste_gen_tree.txt");
     cout << "DFS Finalizada!" << endl;
     //for(int j = 0; j < nVertices; j++){
     //    cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Grau: " << degree[j] << endl;
@@ -502,4 +522,64 @@ int Graph::calcDiameter(){
         //TODO
     }
     return diameter;
+}
+
+void Graph::getConnectedComponents(){
+    CC = new vector<int>[nVertices];
+    vector<bool> CCvisited(nVertices, false);
+
+    int compConex = 0;
+
+    for(int i = 0; i < nVertices; i++){
+        if(CCvisited[i] == false){
+            BFS(i+1);
+            for(int j = 0; j < nVertices; j++){
+                if(nodesFather[j] != -1){
+                    CC[compConex].push_back(j+1);
+                    CCvisited[j] = true;
+                }
+            }
+            compConex++;
+        }
+    }
+    nConnectedComponents = compConex;
+}
+
+int Graph::getNConnectedComponents(){
+    return nConnectedComponents;
+}
+
+void Graph::exportInfoToTxt(string sFilename){
+    ofstream fout(sFilename);
+
+    if (!fout){
+        cout<<endl;
+        cout << "Erro ao abrir o arquivo." << endl;
+        return;
+    }
+
+    fout << "Numero de vertices: " << nVertices << endl;
+    fout << "Numero de arestas: " << nEdges << endl;
+    fout << "Grau minimo: " << getMinDegree() << endl;
+    fout << "Grau medio: " << getAvgDegree() << endl;
+    fout << "Grau maximo: " << getMaxDegree() << endl;
+    fout << "Grau mediano: " << getMedianDegree() << endl;
+
+    fout.close();
+}
+
+void Graph::exportGenTreeToTxt(string sFilename){
+    ofstream fout(sFilename);
+
+    if (!fout){
+        cout<<endl;
+        cout << "Erro ao abrir o arquivo." << endl;
+        return;
+    }
+
+    for(int i = 0; i < nVertices; i++){
+        fout << "Vertice: " << i+1 << " | Pai: " << nodesFather[i] << " | Level: " << nodesLevel[i] << endl;
+    }
+
+    fout.close();
 }

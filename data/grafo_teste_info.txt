@@ -1,0 +1,6 @@
+Numero de vertices: 10
+Numero de arestas: 13
+Grau minimo: 1
+Grau medio: 2
+Grau maximo: 5
+Grau mediano: 2

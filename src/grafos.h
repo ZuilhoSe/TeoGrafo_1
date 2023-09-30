@@ -11,7 +11,7 @@ typedef class Graph{
         int avgDegree = -1;
         int medianDegree = -1;
         int diameter = -1;
-        int connectedComponents = -1;
+        int nConnectedComponents = 0;
         bool adjMatrix;
         bool adjList;
         bool **Matrix;
@@ -35,9 +35,13 @@ typedef class Graph{
         void DFS(int v);
         int calcDistance(int v1, int v2);
         int calcDiameter();
+        void getConnectedComponents();
+        int getNConnectedComponents();
 
+        std::vector<int> *CC;
         std::vector<int> nodesFather;
         std::vector<int> nodesDegree;
+        std::vector<int> nodesLevel;
         
         // Adjacency Matrix related functions
         void createAdjMatrix(std::ifstream &fin);
@@ -60,5 +64,10 @@ typedef class Graph{
         int getMedianDegreeAdjList();
         void BFSAdjList(int v);
         void DFSAdjList(int v);
+
+        //TXT related functions
+        void exportInfoToTxt(std::string sFilename);
+        void exportGenTreeToTxt(std::string sFilename);
+        void exportConnectedComponentsToTxt(std::string sFilename);
 
 } Graph;
