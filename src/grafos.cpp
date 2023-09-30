@@ -145,47 +145,48 @@ void Graph::BFSAdjMatrix(int v){
         }
     }
 
-    cout << "Finalizado" << endl;
-    for (int i = 0; i < nVertices; i++){
-        cout << i+1 << " " << degree[i] << " " << father[i] << endl;
-    }
+    cout << "BFS Finalizada!" << endl;
 }   
 
 void Graph::DFSAdjMatrix(int v){
     vector<bool> visited(nVertices, false);
     vector<int> degree(nVertices, 0);
     vector<int> father(nVertices, -1);
-    vector<int> queue;
+    vector<int> explored;
+    vector<int> stack;
     vector<int> neighbors;
 
-    visited[v-1] = true;
+    father[v-1] = 0;
     degree[v-1] = 0;
+    stack.push_back(v-1);
 
-    queue.push_back(v-1);    
+    int counter = 0;
 
-    while(queue.size() > 0){
-        int f = queue[0];
-        queue.erase(queue.begin());
+    while(stack.size() > 0){
+        int f = stack[stack.size()-1];
+        stack.pop_back();
 
-        if(visited[f]==0){
+        if(visited[f] == false){
             visited[f] = true;
+            explored.push_back(f+1);
             neighbors = returnNeighbors(f+1);
-            for (int i = neighbors.size()-1; i >= 0; i--){
-                int w = neighbors[i]-1;
-                queue.push_back(w);
-                if(!visited[w]){
-                    degree[w] = degree[f]+1;
-                    father[w] = f+1;
+            degree[f] = neighbors.size();
+
+            for(int i = neighbors.size()-1; i >= 0; i--){
+                int w = neighbors[i];
+                if(visited[w-1] == false){
+                    stack.push_back(w-1);
+                    father[w-1] = f+1;
                 }
             }
         }
+        counter++;
+        if (counter == 200){
+            break;
+        }
     }
 
-    cout << "Finalizado" << endl;
-
-    for (int i = 0; i < nVertices; i++){
-        cout << i+1 << " " << degree[i] << " " << father[i] << endl;
-    }
+    cout << "DFS Finalizada!" << endl;
 }
 
 /**
