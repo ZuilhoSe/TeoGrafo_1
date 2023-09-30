@@ -25,6 +25,36 @@ bool readNextToken(int& token, ifstream& fin){
     return true;
 }
 
+bool comparePair(const pair<int, int>& a, const pair<int, int>& b) {
+    return a.first < b.first;
+}
+
+vector<int> sortArrayWithIndexes(const vector<int>& arr) {
+    vector<pair<int, int>> indexedArray;
+    vector<int> sortedArray;
+    vector<int> indexes;
+
+    // Populate the indexedArray with pairs of (element, index)
+    for (int i = 0; i < arr.size(); i++) {
+        indexedArray.push_back({arr[i], i});
+    }
+
+    // Sort the indexedArray based on elements
+    sort(indexedArray.begin(), indexedArray.end(), comparePair);
+
+    // Extract the sorted elements
+    for (const auto& pair : indexedArray) {
+        sortedArray.push_back(pair.first);
+    }
+
+    // Extract the indexes
+    for (const auto& pair : indexedArray) {
+        indexes.push_back(pair.second);
+    }
+
+    return indexes;
+}
+
 /**
  * AdjMatrix functions
  */
@@ -582,4 +612,36 @@ void Graph::exportGenTreeToTxt(string sFilename){
     }
 
     fout.close();
+}
+
+void Graph::exportConnectedComponentsToTxt(string sFilename){
+    this->getConnectedComponents();
+
+    vector<int> sizes(nConnectedComponents);
+
+    for (int i = 0; i < nConnectedComponents; i++){
+        sizes[i] = CC[i].size();
+        cout << "Componente " << i+1 << " tem tamanho " << sizes[i] << endl;
+    }
+
+    vector<int> indexes = sortArrayWithIndexes(sizes);
+
+    ofstream fout(sFilename);
+
+    if (!fout){
+        cout<<endl;
+        cout << "Erro ao abrir o arquivo." << endl;
+        return;
+    }
+
+    for (int i = nConnectedComponents-1; i >= 0; i--){
+        fout << "Componente " << nConnectedComponents-i << " tem tamanho " << sizes[indexes[i]] << endl;
+        fout << "Vertices: ";
+        for (int j = 0; j < CC[indexes[i]].size(); j++){
+            fout << CC[indexes[i]][j] << " ";
+        }
+        fout << endl;
+        fout << endl;
+    }
+
 }

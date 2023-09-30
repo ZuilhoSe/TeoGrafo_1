@@ -1,6 +1,6 @@
-Numero de vertices: 10
-Numero de arestas: 13
-Grau minimo: 1
-Grau medio: 2
-Grau maximo: 5
-Grau mediano: 2
+Componente 1 tem tamanho 8
+Vertices: 1 2 3 4 5 6 7 8 
+
+Componente 2 tem tamanho 2
+Vertices: 9 10 
+

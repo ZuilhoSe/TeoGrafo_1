@@ -8,7 +8,6 @@ using namespace std;
 
 int main(){
     Graph g("data/grafo_teste.txt", false, true);
-    g.exportInfoToTxt("data/grafo_teste_info.txt");
-    g.BFS(1);
+    g.exportConnectedComponentsToTxt("data/grafo_teste_info.txt");
     return 0;
 }
