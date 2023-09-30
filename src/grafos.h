@@ -36,7 +36,9 @@ typedef class Graph{
         int calcDistance(int v1, int v2);
         int calcDiameter();
 
-
+        std::vector<int> nodesFather;
+        std::vector<int> nodesDegree;
+        
         // Adjacency Matrix related functions
         void createAdjMatrix(std::ifstream &fin);
         void addEdgeAdjMatrix(int v1, int v2);

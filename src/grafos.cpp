@@ -179,6 +179,9 @@ void Graph::BFSAdjMatrix(int v){
 
     cout << "BFS Finalizada!" << endl;
 
+    nodesDegree = degree;
+    nodesFather = father;
+
     //for(int j = 0; j < nVertices; j++){
     //    cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Grau: " << degree[j] << endl;
     //}
@@ -213,6 +216,9 @@ void Graph::DFSAdjMatrix(int v){
             }
         }
     }
+
+    nodesDegree = degree;
+    nodesFather = father;
 
     cout << "DFS Finalizada!" << endl;
 }
@@ -327,6 +333,9 @@ void Graph::BFSAdjList(int v){
         }
     }
 
+    nodesDegree = degree;
+    nodesFather = father;
+
     cout << "BFS Finalizada!" << endl;
     //for(int j = 0; j < nVertices; j++){
     //    cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Grau: " << degree[j] << endl;
@@ -364,6 +373,9 @@ void Graph::DFSAdjList(int v){
             }
         }
     }
+
+    nodesDegree = degree;
+    nodesFather = father;
 
     cout << "DFS Finalizada!" << endl;
     //for(int j = 0; j < nVertices; j++){
@@ -470,11 +482,17 @@ void Graph::DFS(int v){
 int Graph::calcDistance(int v1, int v2){
     int distance = 0;
 
-    if(adjMatrix){
-        //TODO
-    }else if(adjList){
-        //TODO
+    this->BFS(v1);
+
+    int current = v2;
+    while(current != v1){
+        current = nodesFather[current-1];
+        if (current == -1){
+            return current;
+        }
+        distance++;
     }
+
 
     return distance;
 }
