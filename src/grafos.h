@@ -29,7 +29,7 @@ typedef class Graph{
         int getMaxDegree();
         int getAvgDegree();
         int getMedianDegree();
-        std::vector<int> returnNeighbors(int v);
+        std::vector<int> returnNeighbors(int v, bool mode);
         void BFS(int v);
         void DFS(int v);
         int calcDistance(int v1, int v2);

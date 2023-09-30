@@ -7,9 +7,9 @@
 using namespace std;
 
 int main(){
-    Graph g("data/grafo_teste.txt", true, false);
+    Graph g("data/grafo_teste.txt", false, true);
     cout << "NVertices: " << g.getNVertices() << endl;
     g.BFS(1);
-    g.DFS(4);
+    //g.DFS(1);
     return 0;
 }

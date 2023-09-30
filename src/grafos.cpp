@@ -105,14 +105,23 @@ void Graph::createAdjMatrix(ifstream &fin){
     }
 }
 
-std::vector<int> Graph::returnNeighbors(int v){
+std::vector<int> Graph::returnNeighbors(int v, bool mode){
     v = v-1;
     vector<int> neighbors;
-    for(int i = 0; i < nVertices; i++){
-        if(Matrix[v][i]){
-            neighbors.push_back(i+1);
+    
+    if (mode){
+        for(int i = 0; i < List[v].size(); i++){
+            neighbors.push_back(List[v][i]);
+        }
+        return neighbors;
+    }else{
+        for(int i = 0; i < nVertices; i++){
+            if(Matrix[v][i]){
+                neighbors.push_back(i+1);
+            }
         }
     }
+
     return neighbors;
 }
 
@@ -132,7 +141,7 @@ void Graph::BFSAdjMatrix(int v){
         int f = queue[0];
         queue.erase(queue.begin());
 
-        neighbors = returnNeighbors(f+1);
+        neighbors = returnNeighbors(f+1, false);
         degree[f] = neighbors.size();
 
         for (int i = 0; i < neighbors.size(); i++){
@@ -146,6 +155,10 @@ void Graph::BFSAdjMatrix(int v){
     }
 
     cout << "BFS Finalizada!" << endl;
+
+    for(int j = 0; j < nVertices; j++){
+        cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Grau: " << degree[j] << endl;
+    }
 }   
 
 void Graph::DFSAdjMatrix(int v){
@@ -160,8 +173,6 @@ void Graph::DFSAdjMatrix(int v){
     degree[v-1] = 0;
     stack.push_back(v-1);
 
-    int counter = 0;
-
     while(stack.size() > 0){
         int f = stack[stack.size()-1];
         stack.pop_back();
@@ -169,7 +180,7 @@ void Graph::DFSAdjMatrix(int v){
         if(visited[f] == false){
             visited[f] = true;
             explored.push_back(f+1);
-            neighbors = returnNeighbors(f+1);
+            neighbors = returnNeighbors(f+1, false);
             degree[f] = neighbors.size();
 
             for(int i = neighbors.size()-1; i >= 0; i--){
@@ -179,10 +190,6 @@ void Graph::DFSAdjMatrix(int v){
                     father[w-1] = f+1;
                 }
             }
-        }
-        counter++;
-        if (counter == 200){
-            break;
         }
     }
 
@@ -253,7 +260,40 @@ void Graph::createAdjList(ifstream &fin){
 }
 
 void Graph::BFSAdjList(int v){
-    //TODO
+    vector<bool> visited(nVertices, false);
+    vector<int> degree(nVertices, 0);
+    vector<int> father(nVertices, -1);
+    vector<int> queue;
+    vector<int> neighbors;
+
+    visited[v-1] = true;
+    degree[v-1] = 0;
+    father[v-1] = 0;
+    queue.push_back(v-1);
+
+    while(queue.size() > 0){
+        int f = queue[0];
+        queue.erase(queue.begin());
+
+        neighbors = returnNeighbors(f+1, true);
+        degree[f] = neighbors.size();
+
+        while(neighbors.size() > 0){
+            int w = neighbors[0];
+            neighbors.erase(neighbors.begin());
+
+            if(visited[w] == false){
+                visited[w] = true;
+                queue.push_back(w);
+                father[w] = f+1;
+            }
+        }
+    }
+
+    cout << "BFS Finalizada!" << endl;
+    //for(int j = 0; j < nVertices; j++){
+    //    cout << "Vertice: " << j+1 << " | Pai: " << father[j] << " | Grau: " << degree[j] << endl;
+    //}
 }
 
 void Graph::DFSAdjList(int v){
