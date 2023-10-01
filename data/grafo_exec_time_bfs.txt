@@ -1,0 +1,6 @@
+Mean Execution Time Graph 1: 129 microseconds
+Mean Execution Time Graph 2: 732 microseconds
+Mean Execution Time Graph 3: 7713 microseconds
+Mean Execution Time Graph 4: 14085 microseconds
+Mean Execution Time Graph 5: 39385 microseconds
+Mean Execution Time Graph 6: 1259304 microseconds

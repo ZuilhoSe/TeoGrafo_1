@@ -5,6 +5,7 @@
 #include <queue>
 #include <bits/stdc++.h>
 #include "grafos.h"
+#include <random>
 
 using namespace std;
 
@@ -462,6 +463,7 @@ bool Graph::createGraphFromTxt(std::string sFilename, bool makeMatrix, bool make
     }
 
     fin.close();
+    cout << "Arquivo lido!" << endl;
     return true;
 }
 
@@ -549,7 +551,35 @@ int Graph::calcDistance(int v1, int v2){
 
 int Graph::calcDiameter(){
     if(diameter == -1){
-        //TODO
+        if(nVertices < 100000){
+            int max = 0;
+            for(int i = 0; i < nVertices; i++){
+                for(int j = 0; j < nVertices; j++){
+                    int distance = calcDistance(i+1, j+1);
+                    if(distance > max){
+                        max = distance;
+                    }
+                }
+            }
+            diameter = max;
+        }else{
+            int max = 0;
+            std::random_device rd;
+            std::mt19937 mt(rd()); // Mersenne Twister pseudo-random number generator
+            std::uniform_int_distribution<int> distribution(1, nVertices); // Generate integers between 1 and 100
+
+            for(int i = 0; i < 1500; i++){
+                int randomNum = distribution(mt);
+                this->BFS(randomNum);
+                for(int j = 0; j < nVertices; j++){
+                    int distance = nodesLevel[j];
+                    if(distance > max){
+                        max = distance;
+                    }
+                }
+            }
+            diameter = max;
+        }
     }
     return diameter;
 }
@@ -634,6 +664,7 @@ void Graph::exportConnectedComponentsToTxt(string sFilename){
         return;
     }
 
+    fout << "Numero de componentes conexas: " << nConnectedComponents << endl;
     for (int i = nConnectedComponents-1; i >= 0; i--){
         fout << "Componente " << nConnectedComponents-i << " tem tamanho " << sizes[indexes[i]] << endl;
         fout << "Vertices: ";

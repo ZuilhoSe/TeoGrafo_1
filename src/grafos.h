@@ -23,6 +23,17 @@ typedef class Graph{
         Graph(std::string sFilename, bool adjMatrix, bool adjList){
             this->createGraphFromTxt(sFilename, adjMatrix, adjList);
         };
+        ~Graph(){
+            if (this->adjMatrix){
+                for (int i = 0; i < this->nVertices; i++){
+                    delete[] this->Matrix[i];
+                }
+                delete[] this->Matrix;
+            }
+            if (this->adjList){
+                delete[] this->List;
+            }
+        };
         bool createGraphFromTxt(std::string sFilename, bool adjMatrix, bool adjList);
         int getNVertices();
         int getNEdges();
