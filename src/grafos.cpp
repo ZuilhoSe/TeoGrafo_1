@@ -164,10 +164,7 @@ std::vector<int> Graph::returnNeighbors(int v, bool mode){
     vector<int> neighbors;
     
     if (mode){
-        for(int i = 0; i < List[v].size(); i++){
-            neighbors.push_back(List[v][i]);
-        }
-        return neighbors;
+        return List[v];
     }else{
         for(int i = 0; i < nVertices; i++){
             if(Matrix[v][i]){

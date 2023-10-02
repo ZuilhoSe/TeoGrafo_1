@@ -9,7 +9,7 @@
 using namespace std;
 
 int main(){
-    int nExecutions = 2;
+    int nExecutions = 100;
     Graph g("data/grafo_6.txt", false, true);
     vector<long long> executionTimes;
 
