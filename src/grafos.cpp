@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <queue>
+#include <stack>
 #include <bits/stdc++.h>
 #include "grafos.h"
 #include <random>
@@ -200,7 +201,7 @@ void Graph::BFSAdjMatrix(int v){
         for (int i = 0; i < neighbors.size(); i++){
             int w = neighbors[i];
             if(visited[w-1] == false){
-                visited[w-1] = true;
+                visited[w-1] = true;    
                 queue.push_back(w-1);
                 father[w-1] = f+1;
                 level[w-1] = level[f]+1;
@@ -345,31 +346,25 @@ void Graph::BFSAdjList(int v){
     vector<int> degree(nVertices, 0);
     vector<int> father(nVertices, -1);
     vector<int> level(nVertices, -1);
-    vector<int> queue;
-    vector<int> neighbors;
+    queue<int> q;
 
     visited[v-1] = true;
     degree[v-1] = 0;
     father[v-1] = 0;
     level[v-1] = 0;
-    queue.push_back(v-1);
+    q.push(v - 1);
 
-    while(queue.size() > 0){
-        int f = queue[0];
-        queue.erase(queue.begin());
+    while (!q.empty()) {
+        int f = q.front();
+        q.pop();
 
-        neighbors = returnNeighbors(f+1, true);
-        degree[f] = neighbors.size();
-
-        while(neighbors.size() > 0){
-            int w = neighbors[0];
-            neighbors.erase(neighbors.begin());
-
-            if(visited[w] == false){
+        for (int w : List[f]) {  // Assuming adjacencyList is a vector<vector<int>>
+            if (!visited[w]) {
                 visited[w] = true;
-                queue.push_back(w);
-                father[w] = f+1;
-                level[w] = level[f]+1;
+                q.push(w);
+                father[w] = f + 1;
+                level[w] = level[f] + 1;
+                degree[f]++;
             }
         }
     }
@@ -390,31 +385,29 @@ void Graph::DFSAdjList(int v){
     vector<int> degree(nVertices, 0);
     vector<int> father(nVertices, -1);
     vector<int> level(nVertices, -1);
-    vector<int> stack;
-    vector<int> neighbors;
+    stack<int> s;  
 
     father[v-1] = 0;
     degree[v-1] = 0;
     level[v-1] = 0;
-    stack.push_back(v-1);
+    s.push(v - 1);
 
-    while(stack.size() > 0){
-        int f = stack[stack.size()-1];
-        stack.pop_back();
+    while (!s.empty()) {
+        int f = s.top();
+        s.pop();
 
-        if(visited[f] == false){
+        if (!visited[f]) {
             visited[f] = true;
-            neighbors = returnNeighbors(f+1, true);
+            vector<int> neighbors = returnNeighbors(f + 1, true);
             degree[f] = neighbors.size();
 
-            while(neighbors.size() > 0){
-                int w = neighbors[neighbors.size()-1];
-                neighbors.pop_back();
+            for (int i = neighbors.size() - 1; i >= 0; --i) {
+                int w = neighbors[i];
 
-                if(visited[w] == false){
-                    stack.push_back(w);
-                    father[w] = f+1;
-                    level[w] = level[f]+1;
+                if (!visited[w]) {
+                    s.push(w);
+                    father[w] = f + 1;
+                    level[w] = level[f] + 1;
                 }
             }
         }

@@ -9,8 +9,8 @@
 using namespace std;
 
 int main(){
-    int nExecutions = 100;
-    Graph g("data/grafo_6.txt", false, true);
+    int nExecutions = 1;
+    Graph g("data/grafo_1.txt", false, true);
     vector<long long> executionTimes;
 
     std::random_device rd;
@@ -40,7 +40,7 @@ int main(){
 
     cout << "Mean Execution Time: " << meanExecutionTime << " microseconds" << endl;
     
-    ofstream fout("data/grafo_exec_time_dfs.txt", std::ios::app);
+    ofstream fout("data/grafo_exec_time_bfs.txt", std::ios::app);
 
     if (!fout){
         cout<<endl;
@@ -48,7 +48,7 @@ int main(){
         return 0;
     }
 
-    fout << "Mean Execution Time Graph 6: " << meanExecutionTime << " microseconds" << endl;
+    //fout << "Mean Execution Time Graph 5: " << meanExecutionTime << " microseconds" << endl;
 
     return 0;
 }
