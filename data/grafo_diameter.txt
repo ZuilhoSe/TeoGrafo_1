@@ -1,0 +1,6 @@
+Diameter Graph 1: 4
+Diameter Graph 2: 4
+Diameter Graph 3: 20
+Diameter Graph 4: 5
+Diameter Graph 5: 31
+Diameter Graph 6: 15
