@@ -551,7 +551,7 @@ int Graph::calcDistance(int v1, int v2){
 
 int Graph::calcDiameter(){
     if(diameter == -1){
-        if(nVertices < 100000){
+        if(nVertices < 1000){
             int max = 0;
             for(int i = 0; i < nVertices; i++){
                 for(int j = 0; j < nVertices; j++){
@@ -568,7 +568,7 @@ int Graph::calcDiameter(){
             std::mt19937 mt(rd()); // Mersenne Twister pseudo-random number generator
             std::uniform_int_distribution<int> distribution(1, nVertices); // Generate integers between 1 and 100
 
-            for(int i = 0; i < 1500; i++){
+            for(int i = 0; i < 1000; i++){
                 int randomNum = distribution(mt);
                 this->BFS(randomNum);
                 for(int j = 0; j < nVertices; j++){
